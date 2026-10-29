@@ -27,20 +27,20 @@
   - [x] Execute `mapred streaming` passing python scripts via the `-files` option.
 
 ## 3. Stage II: Apache Hive
-- [ ] **Implement `processing.hql` script**
-  - [ ] Performance requirement: Use CTEs (`WITH` clauses) to avoid writing unnecessary intermediate tables to disk.
-  - [ ] Use `DROP TABLE IF EXISTS` at the beginning for idempotence/repeatability.
-  - [ ] Create 2 `EXTERNAL TABLE`s for the MapReduce output and the restaurant dataset.
-  - [ ] Perform an optimal `JOIN` of both datasets on `restaurant_id`.
-  - [ ] Set aggregation level to `country` and `cuisine`.
-  - [ ] Calculate Hive metrics: total orders, *weighted average* price (based on MR data), and `cancelled_ratio`.
-  - [ ] Alpha group calculation: Use `RANK() OVER` partitioned by country to create a ranking.
-  - [ ] Alpha group calculation: Calculate deviation from the country average using `AVG() OVER`.
-  - [ ] Output format: Export data to JSONL format (record-level JSON) using the SerDe mechanism (H15 requirement).
-- [ ] **Implement `run_hive.sh` script**
-  - [ ] Handle 3 arguments (MR output dir, DB4 input dir, Hive output dir).
-  - [ ] Remove output directory before execution.
-  - [ ] Execute HQL script using the `beeline` command.
+- [x] **Implement `processing.hql` script**
+  - [x] Performance requirement: Use CTEs (`WITH` clauses) to avoid writing unnecessary intermediate tables to disk.
+  - [x] Use `DROP TABLE IF EXISTS` at the beginning for idempotence/repeatability.
+  - [x] Create 2 `EXTERNAL TABLE`s for the MapReduce output and the restaurant dataset.
+  - [x] Perform an optimal `JOIN` of both datasets on `restaurant_id`.
+  - [x] Set aggregation level to `country` and `cuisine`.
+  - [x] Calculate Hive metrics: total orders, *weighted average* price (based on MR data), and `cancelled_ratio`.
+  - [x] Alpha group calculation: Use `RANK() OVER` partitioned by country to create a ranking.
+  - [x] Alpha group calculation: Calculate deviation from the country average using `AVG() OVER`.
+  - [x] Output format: Export data to JSONL format (record-level JSON) using the SerDe mechanism (H15 requirement).
+- [x] **Implement `run_hive.sh` script**
+  - [x] Handle 3 arguments (MR output dir, DB4 input dir, Hive output dir).
+  - [x] Remove output directory before execution.
+  - [x] Execute HQL script using the `beeline` command.
 
 ## 4. Stage III: Orchestration (Apache Airflow)
 - [ ] Configure the attached DAG in Airflow.
