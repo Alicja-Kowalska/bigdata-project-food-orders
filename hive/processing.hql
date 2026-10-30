@@ -30,7 +30,7 @@ STORED AS TEXTFILE
 LOCATION '${hiveconf:DB4_INPUT_DIR}'
 TBLPROPERTIES ("skip.header.line.count"="1");
 
--- STEP 4: Advanced Analytical Query with CTE placed at the beginning
+-- STEP 4: Advanced Analytical Query with Named JSON Columns
 WITH JoinedData AS (
     -- Perform JOIN on restaurant_id
     SELECT 
@@ -73,7 +73,9 @@ FROM (
         total_orders,
         weighted_avg_price,
         cancelled_ratio,
+        -- RANK() partitioned by country
         RANK() OVER (PARTITION BY country ORDER BY total_orders DESC) AS cuisine_rank,
+        -- Calculate deviation from the country average using AVG() OVER
         total_orders - AVG(total_orders) OVER (PARTITION BY country) AS deviation_from_country_avg
     FROM AggregatedData
 ) FinalSelect;
