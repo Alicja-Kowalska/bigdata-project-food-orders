@@ -18,7 +18,6 @@ echo "Hive Target Output Directory: $HIVE_OUTPUT_DIR"
 
 # Ensure clean slate: Remove target directory if exists, then recreate it cleanly
 hadoop fs -rm -r -f "$HIVE_OUTPUT_DIR"
-hadoop fs -mkdir -p "$HIVE_OUTPUT_DIR"
 
 # Execute the HQL script using beeline
 beeline -u "jdbc:hive2://localhost:10000" \
