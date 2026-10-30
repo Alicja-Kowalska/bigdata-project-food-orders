@@ -16,11 +16,11 @@ echo "MapReduce Output Directory (Input 1): $MR_OUTPUT_DIR"
 echo "Restaurants Directory (Input 2): $DB4_INPUT_DIR"
 echo "Hive Target Output Directory: $HIVE_OUTPUT_DIR"
 
-# Ensure clean slate: Remove target directory if exists, then recreate it cleanly
+# Ensure clean slate: Remove target directory if exists
 hadoop fs -rm -r -f "$HIVE_OUTPUT_DIR"
 
-# Execute the HQL script using beeline
-beeline -u "jdbc:hive2://localhost:10000" \
+# Execute the HQL script using beeline AS THE HADOOP USER (-n hadoop)
+beeline -u "jdbc:hive2://localhost:10000" -n hadoop \
     --hiveconf MR_OUTPUT_DIR="$MR_OUTPUT_DIR" \
     --hiveconf DB4_INPUT_DIR="$DB4_INPUT_DIR" \
     --hiveconf HIVE_OUTPUT_DIR="$HIVE_OUTPUT_DIR" \
