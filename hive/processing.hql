@@ -64,8 +64,16 @@ SELECT
     total_orders,
     weighted_avg_price,
     cancelled_ratio,
-    -- RANK() partitioned by country
-    RANK() OVER (PARTITION BY country ORDER BY total_orders DESC) AS cuisine_rank,
-    -- Calculate deviation from the country average using AVG() OVER
-    total_orders - AVG(total_orders) OVER (PARTITION BY country) AS deviation_from_country_avg
-FROM AggregatedData;
+    cuisine_rank,
+    deviation_from_country_avg
+FROM (
+    SELECT 
+        country,
+        cuisine,
+        total_orders,
+        weighted_avg_price,
+        cancelled_ratio,
+        RANK() OVER (PARTITION BY country ORDER BY total_orders DESC) AS cuisine_rank,
+        total_orders - AVG(total_orders) OVER (PARTITION BY country) AS deviation_from_country_avg
+    FROM AggregatedData
+) FinalSelect;
